@@ -15,44 +15,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        Button buttonGetPostByUserId = findViewById(R.id.buttonGetActivity);
-        Button buttonPost = findViewById(R.id.buttonPostActivity);
-        Button buttonPut = findViewById(R.id.buttonPutActivity);
-        Button buttonGetPostById = findViewById(R.id.buttonDeleteActivity);
+    public void onClickGet(View view) {
+        Intent intent = new Intent(MainActivity.this, GetActivity.class);
+        startActivity(intent);
+    }
 
-        /*
-        buttonGetPostById.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GetActivity.class);
-                startActivity(intent);
-            }
-        });
-        */
 
-        buttonPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PostActivity.class);
-                startActivity(intent);
-            }
-        });
-        /*
-        buttonPut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PutActivity.class);
-                startActivity(intent);
-            }
-        });
+    public void onClickPost(View v) {
+        Intent intent = new Intent(MainActivity.this, PostActivity.class);
+        startActivity(intent);
+    }
 
-        buttonGetPostByUserId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DeleteActivity.class);
-                startActivity(intent);
-            }
-        });*/
+    public void onClickPut(View v) {
+        Intent intent = new Intent(MainActivity.this, PutActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void onClickDelete(View v) {
+        Intent intent = new Intent(MainActivity.this, DeleteActivity.class);
+        startActivity(intent);
     }
 }

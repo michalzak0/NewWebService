@@ -37,10 +37,8 @@ public class PostActivity extends AppCompatActivity {
         buttonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editTextId.getText().toString().equals("")
-                        || editTextName.getText().toString().equals("")
-                        || editTextMessage.getText().toString().equals("")) {
-                    Toast.makeText(PostActivity.this, "Inputs can't be empty", Toast.LENGTH_SHORT).show();
+                if(fieldsEmpty()) {
+                    Toast.makeText(PostActivity.this, "Pola nie mogą być puste!", Toast.LENGTH_SHORT).show();
                 } else {
                     makeRequest();
                 }
@@ -56,12 +54,13 @@ public class PostActivity extends AppCompatActivity {
                     URL url = new URL(MainActivity.apiEndpoint);
                     HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                     httpsURLConnection.setRequestMethod("POST");
-                    Map<String, String> data = new HashMap<>();
+
                     String id = editTextId.getText().toString();
                     String  name = editTextName.getText().toString();
                     String message = editTextMessage.getText().toString();
                     User user = new User(id, name, message);
-                    JSONObject postData = new JSONObject(user);
+
+                    JSONObject postData = new JSONObject(user.toJson());
                     httpsURLConnection.setDoOutput(true);
                     httpsURLConnection.getOutputStream().write(postData.toString().getBytes());
                     if(httpsURLConnection.getResponseCode() == 201) {
@@ -73,10 +72,17 @@ public class PostActivity extends AppCompatActivity {
                         });
                         httpsURLConnection.disconnect();
                     }
-                } catch (Exception exception) {
+                }
+                catch (Exception exception) {
                     Log.e("Something went wrong: ", exception.getMessage());
                 }
             }
         });
+    }
+
+    private boolean fieldsEmpty(){
+        return editTextId.getText().toString().equals("")
+                || editTextName.getText().toString().equals("")
+                || editTextMessage.getText().toString().equals("");
     }
 }
