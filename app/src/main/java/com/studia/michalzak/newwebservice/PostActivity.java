@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -13,37 +12,31 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class PostActivity extends AppCompatActivity {
 
-    private EditText editTextId;
-    private EditText editTextName;
-    private EditText editTextMessage;
+    private EditText editTextUserId;
+    private EditText editTextTitle;
+    private EditText editTextBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        Button buttonPost = findViewById(R.id.buttonPost);
-        editTextId = findViewById(R.id.editTextId);
-        editTextName = findViewById(R.id.editTextName);
-        editTextMessage = findViewById(R.id.editTextMessage);
+        editTextUserId = findViewById(R.id.editTextId);
+        editTextTitle = findViewById(R.id.editTextName);
+        editTextBody = findViewById(R.id.editTextMessage);
+    }
 
-        buttonPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(fieldsEmpty()) {
-                    Toast.makeText(PostActivity.this, "Pola nie mogą być puste!", Toast.LENGTH_SHORT).show();
-                } else {
-                    makeRequest();
-                }
-            }
-        });
+    public void onClickPost(View v) {
+        if(fieldsEmpty()) {
+            Toast.makeText(PostActivity.this, "Pola nie mogą być puste!", Toast.LENGTH_SHORT).show();
+        } else {
+            makeRequest();
+        }
     }
 
     private void makeRequest() {
@@ -55,34 +48,34 @@ public class PostActivity extends AppCompatActivity {
                     HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                     httpsURLConnection.setRequestMethod("POST");
 
-                    String id = editTextId.getText().toString();
-                    String  name = editTextName.getText().toString();
-                    String message = editTextMessage.getText().toString();
-                    User user = new User(id, name, message);
+                    String userId = editTextUserId.getText().toString();
+                    String  title = editTextTitle.getText().toString();
+                    String body = editTextBody.getText().toString();
+                    Message message = new Message(title, body, "101", userId);
 
-                    JSONObject postData = new JSONObject(user.toJson());
+                    JSONObject postData = new JSONObject(message.toJson());
                     httpsURLConnection.setDoOutput(true);
                     httpsURLConnection.getOutputStream().write(postData.toString().getBytes());
                     if(httpsURLConnection.getResponseCode() == 201) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(PostActivity.this, "Post successfully created", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PostActivity.this, "Post zakończony sukcesem!", Toast.LENGTH_SHORT).show();
                             }
                         });
                         httpsURLConnection.disconnect();
                     }
                 }
                 catch (Exception exception) {
-                    Log.e("Something went wrong: ", exception.getMessage());
+                    Log.e("Coś poszło nie tak!: ", exception.getMessage());
                 }
             }
         });
     }
 
     private boolean fieldsEmpty(){
-        return editTextId.getText().toString().equals("")
-                || editTextName.getText().toString().equals("")
-                || editTextMessage.getText().toString().equals("");
+        return editTextUserId.getText().toString().equals("")
+                || editTextTitle.getText().toString().equals("")
+                || editTextBody.getText().toString().equals("");
     }
 }

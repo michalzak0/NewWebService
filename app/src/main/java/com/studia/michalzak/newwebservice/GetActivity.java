@@ -31,21 +31,16 @@ public class GetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get);
 
         editTextPostId = findViewById(R.id.editTextPostId);
-        Button buttonGet = findViewById(R.id.buttonGet);
         textViewData = findViewById(R.id.textViewData);
-
-        buttonGet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(editTextPostId.getText().toString().equals("")) {
-                    Toast.makeText(GetActivity.this, "Enter post id", Toast.LENGTH_SHORT).show();
-                } else {
-                    fetchData();
-                }
-            }
-        });
-
     }
+
+        public void onClickGet(View v) {
+            if(editTextPostId.getText().toString().equals("")) {
+                Toast.makeText(GetActivity.this, "Id posta jest wymagane!", Toast.LENGTH_SHORT).show();
+            } else {
+                fetchData();
+            }
+        }
 
     private void fetchData() {
         AsyncTask.execute(new Runnable() {
@@ -60,7 +55,7 @@ public class GetActivity extends AppCompatActivity {
                         httpsURLConnection.disconnect();
                     }
                 } catch (Exception exception) {
-                    Log.e("Something went wrong: ", exception.getMessage());
+                    Log.e("Coś poszło nie tak!: ", exception.getMessage());
                 }
             }
         });
