@@ -1,6 +1,6 @@
 package com.studia.michalzak.newwebservice;
 
-import java.util.Map;
+import com.google.gson.Gson;
 
 public class User {
     private String userId;
@@ -25,7 +25,9 @@ public class User {
         return Message;
     }
 
-    public Map<String, String> toJson{
-
+    public String toJson(){
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        return json;
     }
 }
