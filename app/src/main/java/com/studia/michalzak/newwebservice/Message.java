@@ -16,21 +16,23 @@ public class Message {
             jsonReader.beginObject();
             while (jsonReader.hasNext()) {
                 String key = jsonReader.nextName();
-                if (key.equals("title")) {
-                    title = jsonReader.nextString();
-                }
-                else if (key.equals("body")) {
-                    body = jsonReader.nextString();
-                }
-                else if (key.equals("userId")) {
-                    userId = jsonReader.nextString();
+                switch (key) {
+                    case "title":
+                        title = jsonReader.nextString();
+                        break;
+                    case "body":
+                        body = jsonReader.nextString();
+                        break;
+                    case "userId":
+                        userId = jsonReader.nextString();
 
-                }
-                else if (key.equals("id")) {
-                    id = jsonReader.nextString();
-                }
-                else {
-                    jsonReader.skipValue();
+                        break;
+                    case "id":
+                        id = jsonReader.nextString();
+                        break;
+                    default:
+                        jsonReader.skipValue();
+                        break;
                 }
             }
         }
@@ -53,7 +55,6 @@ public class Message {
 
     public String toJson(){
         Gson gson = new Gson();
-        String json = gson.toJson(this);
-        return json;
+        return  gson.toJson(this);
     }
 }
