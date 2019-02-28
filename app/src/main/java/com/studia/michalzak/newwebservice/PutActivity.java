@@ -28,9 +28,9 @@ public class PutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_put);
 
-        editUserId = findViewById(R.id.editTextIdPut);
-        editTextTitle = findViewById(R.id.editTextTitlePut);
-        editTextBody = findViewById(R.id.editTextBodyPut);
+        editUserId = findViewById(R.id.editTextUserId);
+        editTextTitle = findViewById(R.id.editTextTitle);
+        editTextBody = findViewById(R.id.editTextBody);
         editTextId = findViewById(R.id.editTextPostId);
     }
 

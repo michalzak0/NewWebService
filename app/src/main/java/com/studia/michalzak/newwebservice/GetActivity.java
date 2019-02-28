@@ -7,11 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,13 +32,13 @@ public class GetActivity extends AppCompatActivity {
         textViewData = findViewById(R.id.textViewData);
     }
 
-        public void onClickGet(View v) {
-            if(editTextPostId.getText().toString().equals("")) {
-                Toast.makeText(GetActivity.this, "Id posta jest wymagane!", Toast.LENGTH_SHORT).show();
-            } else {
-                fetchData();
-            }
+    public void onClickGet(View v) {
+        if(editTextPostId.getText().toString().equals("")) {
+            Toast.makeText(GetActivity.this, "Id posta jest wymagane!", Toast.LENGTH_SHORT).show();
+        } else {
+            fetchData();
         }
+    }
 
     private void fetchData() {
         AsyncTask.execute(new Runnable() {

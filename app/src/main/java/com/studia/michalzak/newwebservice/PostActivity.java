@@ -26,7 +26,7 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        editTextUserId = findViewById(R.id.editTextId);
+        editTextUserId = findViewById(R.id.editTextUserId);
         editTextTitle = findViewById(R.id.editTextName);
         editTextBody = findViewById(R.id.editTextMessage);
     }
